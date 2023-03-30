@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -68,11 +69,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .alwaysRemember(false)
                 // 12시간 유지
                 .tokenValiditySeconds(43200)
-                .rememberMeParameter("remember-me");
+                .rememberMeParameter("remember-me")
+                .userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
+
 }
