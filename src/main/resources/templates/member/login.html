@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <header>
+        <a sec:authorize-expr="!isAuthenticated()" href="/member/signup">회원가입</a>
+        <a sec:authorize-expr="!isAuthenticated()" href="/member/login">로그인</a>
+        <a sec:authorize-expr="isAuthenticated()" href="/member/logout">로그아웃</a>
+    </header>
+    <p th:if="${error}" th:text="${exception}"></p>
+    <form action="/member/login/action" method="post">
+        USERNAME: <input type="text" name="un"/><br>
+        PW: <input type="password" name="pw"/><br>
+        <button type="submit">로그인</button>
+    </form>
+</body>
+</html>
